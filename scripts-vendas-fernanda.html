@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scripts de Conversão LipoBlaze · Fernanda</title>
+<style>
+:root{
+  --bg:#F8F4EE;
+  --surface:#FFFFFF;
+  --ink:#1A1530;
+  --ink-soft:#3D3556;
+  --muted:#6E6485;
+  --line:#E6DDD0;
+  --rose:#B6385F;
+  --rose-soft:#FBE9EF;
+  --rose-deep:#7C1D3C;
+  --emerald:#1F6B5C;
+  --emerald-soft:#E2F2EC;
+  --emerald-deep:#11463B;
+  --gold:#B68233;
+  --gold-soft:#FAF1DD;
+  --shadow:0 1px 2px rgba(26,21,48,.04), 0 4px 16px rgba(26,21,48,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(248,244,238,.92);
+  backdrop-filter:saturate(140%) blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-inner{
+  max-width:1180px;margin:0 auto;
+  padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.brand{font-weight:700;letter-spacing:-.01em;font-size:15px;color:var(--ink)}
+.brand small{display:block;font-weight:500;color:var(--muted);font-size:12px;margin-top:2px}
+.nav-pills{display:flex;flex-wrap:wrap;gap:6px}
+.nav-pill{
+  font-size:12px;padding:7px 12px;border-radius:999px;
+  background:transparent;color:var(--ink-soft);
+  text-decoration:none;border:1px solid var(--line);
+  transition:all .15s;
+}
+.nav-pill:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.nav-pill.rose:hover{background:var(--rose);border-color:var(--rose)}
+.nav-pill.emerald:hover{background:var(--emerald);border-color:var(--emerald)}
+.container{max-width:1180px;margin:0 auto;padding:32px 24px 80px}
+.hero{
+  background:linear-gradient(135deg,#1A1530 0%, #3D2547 100%);
+  color:#fff;border-radius:24px;padding:44px 36px;
+  margin-bottom:32px;
+  position:relative;overflow:hidden;
+}
+.hero::after{
+  content:"";position:absolute;right:-60px;top:-60px;
+  width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(182,56,95,.4) 0%,rgba(0,0,0,0) 70%);
+}
+.hero h1{font-size:34px;font-weight:700;letter-spacing:-.02em;margin-bottom:12px;line-height:1.15}
+.hero p{font-size:15px;opacity:.85;max-width:640px;line-height:1.65}
+.hero .badge{
+  display:inline-block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  background:rgba(255,255,255,.12);padding:6px 12px;border-radius:999px;margin-bottom:18px;
+}
+.section{margin:48px 0 24px}
+.section-title{
+  font-size:22px;font-weight:700;letter-spacing:-.01em;
+  color:var(--ink);margin-bottom:6px;display:flex;align-items:center;gap:10px;
+}
+.section-sub{color:var(--muted);font-size:14px;margin-bottom:24px}
+.tag{
+  display:inline-block;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  font-weight:700;padding:4px 9px;border-radius:6px;
+}
+.tag.rose{background:var(--rose-soft);color:var(--rose-deep)}
+.tag.emerald{background:var(--emerald-soft);color:var(--emerald-deep)}
+.tag.gold{background:var(--gold-soft);color:#7A521C}
+.tag.dark{background:var(--ink);color:#fff}
+
+/* Quick reference */
+.quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:8px}
+.quick-card{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:14px;padding:18px;box-shadow:var(--shadow);
+}
+.quick-card h4{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:10px}
+.quick-card .price{font-size:22px;font-weight:700;letter-spacing:-.01em}
+.quick-card .price-sub{font-size:13px;color:var(--muted);margin-top:2px}
+.quick-card.featured{background:var(--ink);color:#fff;border-color:var(--ink)}
+.quick-card.featured h4{color:rgba(255,255,255,.7)}
+.quick-card.featured .price-sub{color:rgba(255,255,255,.65)}
+.quick-card .save{display:inline-block;background:var(--rose);color:#fff;font-size:10px;padding:3px 8px;border-radius:4px;letter-spacing:.05em;font-weight:700;margin-top:8px}
+
+.info-strip{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:14px;padding:20px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;
+  margin-top:14px;box-shadow:var(--shadow);
+}
+.info-strip > div h4{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:6px}
+.info-strip > div p{font-size:14px;color:var(--ink-soft)}
+
+/* Persona section header */
+.persona-header{
+  border-radius:20px;padding:28px 32px;color:#fff;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  margin-bottom:24px;flex-wrap:wrap;
+}
+.persona-header.rose{background:linear-gradient(135deg,#B6385F 0%,#7C1D3C 100%)}
+.persona-header.emerald{background:linear-gradient(135deg,#1F6B5C 0%,#11463B 100%)}
+.persona-header h2{font-size:26px;font-weight:700;letter-spacing:-.02em;margin-bottom:6px}
+.persona-header p{opacity:.9;font-size:14px;max-width:520px;line-height:1.6}
+.persona-header .icon{font-size:42px;line-height:1}
+
+/* Subsection */
+.sub{margin-top:32px;margin-bottom:14px}
+.sub h3{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:4px;display:flex;align-items:center;gap:10px}
+.sub h3 .num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:26px;border-radius:8px;font-size:12px;font-weight:700;
+  background:var(--ink);color:#fff;
+}
+.sub h3.rose .num{background:var(--rose)}
+.sub h3.emerald .num{background:var(--emerald)}
+.sub p.lead{font-size:13px;color:var(--muted);margin-bottom:12px}
+
+/* Script block */
+.script{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:14px;padding:0;margin-bottom:14px;
+  overflow:hidden;box-shadow:var(--shadow);
+}
+.script-head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:11px 18px;border-bottom:1px solid var(--line);
+  background:#FBF8F2;
+}
+.script-label{font-size:12px;font-weight:600;color:var(--ink-soft);letter-spacing:.01em}
+.script-label .variant{color:var(--muted);font-weight:500;margin-left:6px}
+.copy-btn{
+  background:var(--ink);color:#fff;border:none;border-radius:8px;
+  padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;
+  transition:all .15s;font-family:inherit;letter-spacing:.01em;
+}
+.copy-btn:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(26,21,48,.18)}
+.copy-btn.copied{background:var(--emerald)}
+.script-body{
+  padding:18px 22px;font-size:14.5px;color:var(--ink-soft);
+  white-space:pre-wrap;line-height:1.65;
+}
+.script-body .msg{
+  background:var(--rose-soft);
+  display:inline-block;padding:8px 14px;border-radius:14px;border-top-left-radius:4px;
+  margin-bottom:6px;max-width:100%;
+}
+.persona-emerald .script-body .msg{background:var(--emerald-soft)}
+.script-body em{font-style:italic;color:var(--muted);font-size:13px;display:block;margin-top:8px}
+
+/* Objection cards */
+.obj-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:14px}
+.obj-card{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:14px;padding:20px;box-shadow:var(--shadow);
+  position:relative;
+}
+.obj-card .q{
+  font-size:13px;color:var(--muted);font-weight:500;margin-bottom:4px;
+  letter-spacing:.04em;text-transform:uppercase;
+}
+.obj-card .obj{font-weight:700;font-size:15px;color:var(--ink);margin-bottom:14px;line-height:1.4}
+.obj-card .a-label{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.obj-card .a{
+  font-size:14px;color:var(--ink-soft);line-height:1.6;
+  background:#FBF8F2;border-radius:10px;padding:14px 16px;
+  white-space:pre-wrap;
+}
+.obj-card .copy-btn{position:absolute;top:18px;right:18px;padding:5px 10px;font-size:11px}
+
+/* Principles list */
+.principles{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.principle{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow)}
+.principle h4{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.principle h4.do{color:var(--emerald-deep)}
+.principle h4.dont{color:var(--rose-deep)}
+.principle ul{list-style:none;padding:0}
+.principle li{
+  font-size:13.5px;color:var(--ink-soft);padding:7px 0 7px 20px;
+  position:relative;line-height:1.55;
+}
+.principle li::before{
+  content:"";position:absolute;left:0;top:14px;
+  width:6px;height:6px;border-radius:50%;background:var(--muted);
+}
+.principle h4.do + ul li::before{background:var(--emerald)}
+.principle h4.dont + ul li::before{background:var(--rose)}
+
+/* Cheatsheet */
+.cheat{background:#1A1530;color:#fff;border-radius:20px;padding:32px;margin-top:48px}
+.cheat h2{font-size:22px;font-weight:700;margin-bottom:20px}
+.cheat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.cheat-block h4{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:10px;font-weight:600}
+.cheat-block p, .cheat-block li{font-size:13.5px;color:rgba(255,255,255,.88);line-height:1.6;list-style:none}
+.cheat-block li{padding:4px 0 4px 16px;position:relative}
+.cheat-block li::before{content:"";position:absolute;left:0;top:11px;width:5px;height:5px;border-radius:50%;background:var(--rose)}
+
+footer{text-align:center;color:var(--muted);font-size:12px;padding:32px 0 0}
+
+@media (max-width:720px){
+  .hero{padding:32px 24px}
+  .hero h1{font-size:26px}
+  .principles{grid-template-columns:1fr}
+  .persona-header{padding:22px}
+  .persona-header h2{font-size:22px}
+  .container{padding:20px 16px 60px}
+  .topbar-inner{padding:12px 16px;flex-direction:column;align-items:flex-start}
+  .nav-pills{width:100%;overflow-x:auto;flex-wrap:nowrap}
+  .nav-pill{white-space:nowrap}
+}
+@media print{
+  .topbar,.copy-btn{display:none}
+  .script,.obj-card,.quick-card,.principle{break-inside:avoid;box-shadow:none}
+  body{background:#fff}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      LipoBlaze · Scripts de Conversão
+      <small>Material de apoio · Fernanda · Vendas e Suporte</small>
+    </div>
+    <nav class="nav-pills">
+      <a class="nav-pill" href="#referencia">Referência</a>
+      <a class="nav-pill" href="#principios">Princípios</a>
+      <a class="nav-pill" href="#diagnostico">Diagnóstico</a>
+      <a class="nav-pill rose" href="#lipedema">Lipedema</a>
+      <a class="nav-pill emerald" href="#emagrecimento">Emagrecimento</a>
+      <a class="nav-pill" href="#comum">Pós contato</a>
+      <a class="nav-pill" href="#cheat">Cheat sheet</a>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+
+  <section class="hero">
+    <span class="badge">Equipe LipoBlaze · Vendas WhatsApp</span>
+    <h1>Scripts de conversão para a Fernanda.</h1>
+    <p>Tudo o que você precisa para conduzir uma conversa do "oi" até o pagamento confirmado. Linguagem natural, falada, sem promessa irreal, sem vergonha corporal. Adaptado para as duas personas principais que vão chegar dos anúncios. Use os botões de copiar e cole no WhatsApp.</p>
+  </section>
+
+  <!-- ========== REFERÊNCIA RÁPIDA ========== -->
+  <section id="referencia" class="section">
+    <h2 class="section-title">Referência rápida <span class="tag dark">decore</span></h2>
+    <p class="section-sub">Os números que você mais vai usar no dia a dia. Mantenha aberto numa aba.</p>
+
+    <div class="quick-grid">
+      <div class="quick-card">
+        <h4>1 pote · 1 mês</h4>
+        <div class="price">R$ 158,00</div>
+        <div class="price-sub">12x de R$ 16,34</div>
+      </div>
+      <div class="quick-card featured">
+        <h4>Kit 3 potes · mais popular</h4>
+        <div class="price">R$ 355,50</div>
+        <div class="price-sub">R$ 118,50/pote · 12x de R$ 36,77</div>
+        <span class="save">25% OFF</span>
+      </div>
+      <div class="quick-card">
+        <h4>Kit 6 potes · tratamento completo</h4>
+        <div class="price">R$ 568,80</div>
+        <div class="price-sub">R$ 94,80/pote · 12x de R$ 58,83</div>
+        <span class="save">40% OFF</span>
+      </div>
+      <div class="quick-card">
+        <h4>Kit 12 potes · ano todo</h4>
+        <div class="price">R$ 948,00</div>
+        <div class="price-sub">R$ 79,00/pote · 12x de R$ 98,05</div>
+        <span class="save">50% OFF</span>
+      </div>
+    </div>
+
+    <div class="info-strip">
+      <div>
+        <h4>Posologia</h4>
+        <p>2 cápsulas por dia, sempre depois das refeições principais. Café da manhã + almoço, ou almoço + jantar.</p>
+      </div>
+      <div>
+        <h4>Garantia</h4>
+        <p>7 dias de garantia incondicional. Se a cliente não gostar, devolvemos o valor.</p>
+      </div>
+      <div>
+        <h4>Pagamento</h4>
+        <p>Checkout pela Kiwify. Pix (cai na hora) e cartão de crédito em até 12x.</p>
+      </div>
+      <div>
+        <h4>Envio</h4>
+        <p>Sai em até 1 dia útil após confirmação. Prazo de entrega varia por região, em média 3 a 7 dias úteis.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PRINCÍPIOS ========== -->
+  <section id="principios" class="section">
+    <h2 class="section-title">Princípios da conversa</h2>
+    <p class="section-sub">Antes de qualquer script, internalize isto. Vale ouro.</p>
+
+    <div class="principles">
+      <div class="principle">
+        <h4 class="do">✓ O que sempre fazer</h4>
+        <ul>
+          <li>Usar o nome da cliente assim que ela disser. Nome quebra distância.</li>
+          <li>Mensagens curtas, em blocos. Nunca um parágrafo gigante. WhatsApp é conversa.</li>
+          <li>Validar o que ela sente antes de oferecer qualquer coisa. Primeiro escutar.</li>
+          <li>Ser honesta. O LipoBlaze ajuda muito, mas não cura lipedema. Quem fala isso ganha confiança.</li>
+          <li>Posicionar o kit de 3 meses como o caminho lógico, não como pressão.</li>
+          <li>Tratar as objeções como dúvidas legítimas, não como barreiras pra furar.</li>
+          <li>Ancorar o preço no tempo de tratamento e no benefício, nunca no produto solto.</li>
+          <li>Fechar com clareza. Pedir o sim. Mandar o link.</li>
+        </ul>
+      </div>
+      <div class="principle">
+        <h4 class="dont">✗ O que nunca fazer</h4>
+        <ul>
+          <li>Prometer cura do lipedema. É proibido por lei e quebra confiança.</li>
+          <li>Prometer X kg em X dias. Cada corpo responde diferente.</li>
+          <li>Falar em vergonha, gordura como problema moral, fotos antes e depois.</li>
+          <li>Mandar muita informação de uma vez. Ela trava e some.</li>
+          <li>Usar travessões e tracinhos pra separar ideias. Soa robótico. Use vírgula, ponto, frase nova.</li>
+          <li>Insistir após 3 tentativas. Se ela não quer, ela não quer hoje. Plante a semente e siga.</li>
+          <li>Soltar o link antes da apresentação. Link sem contexto é link ignorado.</li>
+          <li>Ofertar o kit de 12 meses logo de cara. É upsell de quem já fechou.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== DIAGNÓSTICO INICIAL ========== -->
+  <section id="diagnostico" class="section">
+    <h2 class="section-title">Diagnóstico inicial <span class="tag dark">primeiros 60 segundos</span></h2>
+    <p class="section-sub">Antes de saber qual script usar, você precisa identificar a persona. Faça isso já na primeira ou segunda mensagem trocada.</p>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Pergunta neutra que descobre a persona<span class="variant">use logo após o primeiro oi</span></span>
+        <button class="copy-btn" data-copy="diag-1">Copiar</button>
+      </div>
+      <div class="script-body" id="diag-1">Oii, tudo bem? Aqui é a Fernanda, da equipe do LipoBlaze 💗
+
+Que bom que você veio falar com a gente.
+
+Pra eu te indicar o caminho certo, me conta uma coisinha rapidinho. Você tá procurando o LipoBlaze mais por causa de alguma questão nas pernas (tipo inchaço, gordura que não some com nada, dor, suspeita ou diagnóstico de lipedema), ou é mais pelo lado do emagrecimento e redução de medidas?</div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Versão mais curta<span class="variant">se ela já chegou falando do problema</span></span>
+        <button class="copy-btn" data-copy="diag-2">Copiar</button>
+      </div>
+      <div class="script-body" id="diag-2">Oi! Aqui é a Fernanda do time LipoBlaze 😊
+
+Como você se chama? E me conta rapidinho o que tá te incomodando mais hoje, é mais alguma coisa nas pernas (peso, inchaço, dor, lipedema) ou é mais pelo lado do emagrecimento e redução de medidas?</div>
+    </div>
+
+    <p class="section-sub" style="margin-top:14px"><strong>Regra de ouro:</strong> se ela citar lipedema, suspeita, pernas pesadas, dor, hereditariedade, drenagem, vai para o caminho <span class="tag rose">Lipedema</span>. Se ela falar em emagrecer, perder medidas, barriga, sem citar pernas, vai para <span class="tag emerald">Emagrecimento</span>. Na dúvida, pergunte mais uma vez.</p>
+  </section>
+
+  <!-- ========== PERSONA LIPEDEMA ========== -->
+  <section id="lipedema" class="section persona-rose">
+    <div class="persona-header rose">
+      <div>
+        <h2>Persona Lipedema</h2>
+        <p>Para mulheres com diagnóstico confirmado ou suspeita. Tom técnico mas humano. Honestidade sobre o que o produto faz e o que não faz. Aqui você usa a palavra lipedema sem medo.</p>
+      </div>
+      <div class="icon">🌿</div>
+    </div>
+
+    <!-- ABERTURA / VALIDAÇÃO -->
+    <div class="sub">
+      <h3 class="rose"><span class="num">1</span> Validação inicial · ela acabou de confirmar que é lipedema</h3>
+      <p class="lead">Antes de apresentar o produto, você valida a dor dela. Isso constrói confiança.</p>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Validação · variação A<span class="variant">tom acolhedor</span></span>
+        <button class="copy-btn" data-copy="lip-val-1">Copiar</button>
+      </div>
+      <div class="script-body" id="lip-val-1">Entendi 💗
+
+Posso te fazer 3 perguntinhas rápidas pra entender melhor o seu caso?
+
+1. Você já tem o diagnóstico ou ainda é suspeita?
+2. Há quanto tempo você sente isso nas pernas?
+3. Já tentou outras coisas (dieta, academia, drenagem, massagem) e mesmo assim as pernas continuam do mesmo jeito?</div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Resposta empática · depois que ela contar a história<span class="variant">cole adaptando ao que ela disse</span></span>
+        <button class="copy-btn" data-copy="lip-val-2">Copiar</button>
+      </div>
+      <div class="script-body" id="lip-val-2">Eu te entendo, de verdade.
+
+Você não tá sozinha nisso. Tem milhares de mulheres exatamente no mesmo barco, fazendo dieta, indo na academia, gastando com drenagem, e olhando pras pernas no espelho sem ver mudança.
+
+A boa notícia é que existe um motivo claro pra isso, e o LipoBlaze foi feito justamente pra atacar esse motivo. Posso te explicar como funciona?</div>
+    </div>
+
+    <!-- APRESENTAÇÃO -->
+    <div class="sub">
+      <h3 class="rose"><span class="num">2</span> Apresentação do produto</h3>
+      <p class="lead">Só apresenta depois que ela disse "pode" ou "manda". Se ela não pediu pra ouvir, ainda não é hora.</p>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Apresentação principal · 3 mensagens em sequência<span class="variant">envie em blocos, não tudo junto</span></span>
+        <button class="copy-btn" data-copy="lip-apres-1">Copiar</button>
+      </div>
+      <div class="script-body" id="lip-apres-1">O LipoBlaze é um suplemento natural, não é remédio. Ele tem 8 ingredientes que trabalham 24 horas por dia no corpo.
+
+A diferença dele é que ele age em 3 frentes ao mesmo tempo, que são exatamente as 3 frentes do lipedema:
+
+🌿 Quebra a gordura resistente das pernas (extrato de laranja moro)
+🔥 Reduz a inflamação que mantém o inchaço e a dor (cúrcuma)
+🫀 Melhora a circulação e drena o sistema linfático (L arginina e fibras)
+💊 Fortalece a pele e o tecido conjuntivo (colágeno)
+⚡ Estabiliza o açúcar no sangue e corta a vontade de doce (picolinato de cromo)
+
+E aqui eu vou ser muito honesta com você, porque é importante.</div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Honestidade que vende · envie logo depois</span>
+        <button class="copy-btn" data-copy="lip-apres-2">Copiar</button>
+      </div>
+      <div class="script-body" id="lip-apres-2">O LipoBlaze não cura lipedema. Cura pra lipedema infelizmente ainda não existe, e qualquer pessoa que te disser o contrário tá te enganando.
+
+O que ele faz é controlar muito bem os sintomas. As mulheres relatam menos inchaço, menos dor, menos sensação de peso, pernas mais leves, roupa caindo melhor.
+
+Os primeiros sinais aparecem por volta dos 15 dias. Os resultados consistentes vêm a partir do segundo mês.</div>
+    </div>
+
+    <!-- OFERTA -->
+    <div class="sub">
+      <h3 class="rose"><span class="num">3</span> Apresentação da oferta</h3>
+      <p class="lead">Aqui você ancora o kit de 3 meses como o caminho que faz sentido pelo mecanismo do produto.</p>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Posologia + porque 3 meses</span>
+        <button class="copy-btn" data-copy="lip-of-1">Copiar</button>
+      </div>
+      <div class="script-body" id="lip-of-1">Sobre como tomar, é bem simples. São 2 cápsulas por dia, sempre depois das refeições principais. Pode ser uma após o café da manhã e outra após o almoço, ou uma após o almoço e outra após o jantar. O que encaixar melhor na sua rotina.
+
+Agora, sobre os kits. Eu sempre recomendo o kit de 3 meses, e tem um motivo técnico.
+
+O lipedema é uma condição de inflamação crônica e desorganização linfática. Em 30 dias o corpo só começa a responder, principalmente desinchando. No segundo mês a queima de gordura fica consistente e a inflamação cai de verdade. No terceiro mês os resultados se firmam.
+
+Se você for de 1 pote só, vai sentir uma melhora, mas não vai ter o resultado completo. Por isso o kit de 3 meses é o mais escolhido pelas nossas clientes.</div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Os números do kit de 3<span class="variant">envie só os números, sem novelar</span></span>
+        <button class="copy-btn" data-copy="lip-of-2">Copiar</button>
+      </div>
+      <div class="script-body" id="lip-of-2">O kit de 3 meses tá com 25% de desconto agora.
+
+Fica em R$ 118,50 cada pote, total de R$ 355,50.
+
+No cartão dá 12x de R$ 36,77. Também aceita Pix.
+
+Posso te enviar o link?</div>
+    </div>
+
+    <!-- OBJEÇÕES -->
+    <div class="sub">
+      <h3 class="rose"><span class="num">4</span> Quebra de objeções</h3>
+      <p class="lead">Cada card é uma objeção real e a resposta que funciona. Copie e cole, adapte o nome.</p>
+    </div>
+
+    <div class="obj-grid">
+
+      <div class="obj-card">
+        <div class="q">Objeção · preço</div>
+        <div class="obj">"Tá caro pra mim"</div>
+        <button class="copy-btn" data-copy="lip-obj-1">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="lip-obj-1">Eu te entendo. Olha pelo lado assim.
+
+O kit de 3 meses sai R$ 355,50 no total, ou 12x de R$ 36,77. Isso dá menos de R$ 4 por dia pra um tratamento completo que age em 3 frentes ao mesmo tempo.
+
+Uma sessão de drenagem custa entre R$ 80 e R$ 150 e dura uma sessão. Aqui você tá pagando 3 meses inteiros de cuidado contínuo.
+
+Faz sentido?</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · vai pensar</div>
+        <div class="obj">"Vou pensar / vou conversar com meu marido"</div>
+        <button class="copy-btn" data-copy="lip-obj-2">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="lip-obj-2">Claro, fica à vontade pra pensar 💗
+
+Só uma coisa importante. Esse desconto de 25% é da campanha que tá rodando agora. Se você quiser, eu deixo seu pedido reservado pelas próximas horas pra garantir o valor, sem compromisso. Aí depois você decide. Pode ser?</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · ceticismo</div>
+        <div class="obj">"Será que funciona pra mim?"</div>
+        <button class="copy-btn" data-copy="lip-obj-3">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="lip-obj-3">Te entendo, é uma dúvida normal e legítima.
+
+É exatamente por isso que o LipoBlaze tem 7 dias de garantia incondicional. Você toma, sente como o seu corpo responde, e se não gostar, a gente devolve seu dinheiro sem perguntar nada.
+
+O risco fica todo com a gente, não com você. Faz sentido começar assim?</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · cansaço</div>
+        <div class="obj">"Já tentei muita coisa e nada funcionou"</div>
+        <button class="copy-btn" data-copy="lip-obj-4">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="lip-obj-4">Eu te entendo de verdade. Eu ouço isso o dia inteiro aqui.
+
+A maioria das coisas falha porque ataca uma frente só. Ou só dieta, ou só drenagem, ou só queima de gordura. O lipedema é multifatorial. É inflamação, é circulação, é tecido, é hormônio.
+
+O LipoBlaze trabalha em 3 frentes ao mesmo tempo, e é por isso que ele responde onde outras coisas não responderam. Inclusive, várias clientes que falam isso comigo são as que mais voltam pra repor.</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · saúde</div>
+        <div class="obj">"Tenho diabetes / pressão alta / outra condição"</div>
+        <button class="copy-btn" data-copy="lip-obj-5">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="lip-obj-5">Como o LipoBlaze é 100% natural, ele costuma ser muito tranquilo, inclusive o cromo ajuda na questão da glicose.
+
+Mas eu sempre indico o seguinte. Você leva a composição completa pro seu médico ou farmacêutico antes de começar, principalmente se você toma remédio contínuo. Posso te enviar a lista dos 8 ingredientes pra você mostrar?</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · natural</div>
+        <div class="obj">"É natural mesmo? Não vai me fazer mal?"</div>
+        <button class="copy-btn" data-copy="lip-obj-6">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="lip-obj-6">100% natural sim 💗
+
+Os 8 ingredientes são coisas que você inclusive já conhece. Cúrcuma, colágeno, fibra de beterraba, extrato de laranja moro, L arginina, L triptofano, ágar, picolinato de cromo.
+
+Não tem termogênico forte, não tem anfetamina, não acelera coração, não tira o sono. É de tomar com tranquilidade.</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · gestação</div>
+        <div class="obj">"Tô grávida / amamentando"</div>
+        <button class="copy-btn" data-copy="lip-obj-7">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="lip-obj-7">Se você tá nessa fase, eu não indico começar agora 💗
+
+A prioridade é o bebê. Espera passar o período de gestação ou amamentação, aí depois a gente conversa de novo, beleza? Salva meu contato aqui pra você não me perder.</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · expectativa</div>
+        <div class="obj">"Quanto eu vou perder de medida em quanto tempo?"</div>
+        <button class="copy-btn" data-copy="lip-obj-8">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="lip-obj-8">Olha, eu não posso te prometer um número exato porque cada corpo responde de um jeito, isso seria desonesto da minha parte.
+
+O que eu te garanto, com base no que as nossas clientes relatam, é que a partir de 15 dias você sente diferença no inchaço e no peso das pernas, a roupa começa a caber melhor. No segundo mês os resultados ficam visíveis pra quem te vê. No terceiro mês se firmam.</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · prazo</div>
+        <div class="obj">"Quanto tempo demora pra chegar?"</div>
+        <button class="copy-btn" data-copy="lip-obj-9">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="lip-obj-9">Depois que o pagamento confirma, sai em até 1 dia útil.
+
+O prazo de entrega depende da sua cidade, mas em média leva de 3 a 7 dias úteis. Você recebe o código de rastreio direto no seu email pra acompanhar.</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · confiança</div>
+        <div class="obj">"Vocês são confiáveis? Onde fica a empresa?"</div>
+        <button class="copy-btn" data-copy="lip-obj-10">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="lip-obj-10">Somos uma marca brasileira, tá tudo certinho 💗
+
+O pagamento é processado pela Kiwify, que é uma das maiores plataformas de checkout do Brasil, então você compra com a mesma segurança de quem compra em qualquer site grande.
+
+A garantia é de 7 dias, registrada na própria nota. Se não gostar, devolve.</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · pagamento</div>
+        <div class="obj">"Como é o pagamento?"</div>
+        <button class="copy-btn" data-copy="lip-obj-11">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="lip-obj-11">Aceita Pix e cartão de crédito em até 12x, como ficar mais cômodo pra você 😊</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · médica</div>
+        <div class="obj">"Meu médico pode contraindicar"</div>
+        <button class="copy-btn" data-copy="lip-obj-12">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="lip-obj-12">Faz total sentido você consultar antes 💗
+
+Posso te enviar a composição completa em texto pra você levar pro seu médico? Assim ele avalia, e se ele liberar você começa com tranquilidade. Se ele tiver alguma observação, a gente conversa.</div>
+      </div>
+
+    </div>
+
+    <!-- FECHAMENTO -->
+    <div class="sub">
+      <h3 class="rose"><span class="num">5</span> Fechamento</h3>
+      <p class="lead">Três variações. Use a que combinar com o tom da conversa.</p>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Fechamento A · com escolha (mais usado)</span>
+        <button class="copy-btn" data-copy="lip-close-1">Copiar</button>
+      </div>
+      <div class="script-body" id="lip-close-1">Então, o que você prefere?
+
+Começar com o kit de 3 meses, que cobre o tratamento completo e tem 25% de desconto, ou ir mais leve com 1 pote pra testar?
+
+Eu te indico o de 3, mas a decisão é sua 💗</div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Fechamento B · direto</span>
+        <button class="copy-btn" data-copy="lip-close-2">Copiar</button>
+      </div>
+      <div class="script-body" id="lip-close-2">Posso te enviar o link do kit de 3 meses pra você fazer seu pedido?</div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Fechamento C · três opções (use quando ela ficar indecisa)</span>
+        <button class="copy-btn" data-copy="lip-close-3">Copiar</button>
+      </div>
+      <div class="script-body" id="lip-close-3">Pra te ajudar a decidir, deixa eu colocar do lado as 3 opções principais.
+
+1 pote (1 mês) por R$ 158,00. Você testa, mas não pega o efeito completo.
+
+Kit 3 meses por R$ 355,50, com 25% off. É o mais escolhido. Cobre o tempo certo de resposta do organismo.
+
+Kit 6 meses por R$ 568,80, com 40% off. É o tratamento completo, sai mais barato por pote (R$ 94,80) e você não corre risco de pausar no meio.
+
+Qual deles te chama mais atenção?</div>
+    </div>
+
+    <!-- UPSELL -->
+    <div class="sub">
+      <h3 class="rose"><span class="num">6</span> Upsell sutil · ela já decidiu pelo kit de 3</h3>
+      <p class="lead">Antes de mandar o link, ofereça subir pro kit de 6 com elegância. Se ela disser não, você manda o de 3 sem insistir.</p>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Upsell A · valor por pote</span>
+        <button class="copy-btn" data-copy="lip-up-1">Copiar</button>
+      </div>
+      <div class="script-body" id="lip-up-1">Boa escolha 💗
+
+Antes de eu te mandar o link, deixa eu te falar uma coisa rápida que eu sempre comento.
+
+Muita das nossas clientes acaba pegando o segundo kit antes mesmo de terminar o primeiro, porque o lipedema precisa de continuidade. Se você quiser garantir os 6 meses agora, sai R$ 94,80 cada pote em vez de R$ 118,50. Você economiza R$ 142 e já fecha o tratamento completo.
+
+Quer que eu te passe nessa opção, ou prefere começar com 3 mesmo?</div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Upsell B · evita pausa no tratamento</span>
+        <button class="copy-btn" data-copy="lip-up-2">Copiar</button>
+      </div>
+      <div class="script-body" id="lip-up-2">Só uma observação técnica antes de fechar.
+
+O efeito do LipoBlaze é cumulativo. Se você pausa no meio, o organismo desorganiza de novo e perde parte do que conquistou.
+
+Por isso muitas pegam o de 6 logo, pra não correr esse risco. Sai R$ 94,80 o pote contra R$ 118,50 do kit de 3.
+
+Mas qualquer um dos dois você já tá no caminho certo, viu? 😊 Você decide.</div>
+    </div>
+
+  </section>
+
+  <!-- ========== PERSONA EMAGRECIMENTO ========== -->
+  <section id="emagrecimento" class="section persona-emerald">
+    <div class="persona-header emerald">
+      <div>
+        <h2>Persona Emagrecimento</h2>
+        <p>Para mulheres que querem perder medidas, secar barriga, desinchar, ter mais energia. Aqui não citamos lipedema. O foco é redução de medidas, queima de gordura, menos inchaço, pele firme.</p>
+      </div>
+      <div class="icon">⚡</div>
+    </div>
+
+    <!-- VALIDAÇÃO -->
+    <div class="sub">
+      <h3 class="emerald"><span class="num">1</span> Validação inicial · ela quer emagrecer</h3>
+      <p class="lead">Sem dramatizar o corpo. Validação é prática, não emocional.</p>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Validação · descobrir o contexto dela</span>
+        <button class="copy-btn" data-copy="ema-val-1">Copiar</button>
+      </div>
+      <div class="script-body" id="ema-val-1">Que bom 💗
+
+Posso te fazer 3 perguntas rápidas pra te indicar o melhor caminho?
+
+1. Quanto você gostaria de reduzir, mais ou menos?
+2. Tá tentando há quanto tempo?
+3. O que mais te incomoda hoje, é mais a barriga, o inchaço, a falta de energia, a vontade de doce, ou tudo um pouco?</div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Resposta empática · sem vitimização</span>
+        <button class="copy-btn" data-copy="ema-val-2">Copiar</button>
+      </div>
+      <div class="script-body" id="ema-val-2">Eu te entendo 😊
+
+A maioria das mulheres que vem falar comigo tá no mesmo lugar. Faz dieta, evita doce a semana inteira, mas no final do dia bate uma compulsão, ou inflama, ou inchamento parece que não vai embora.
+
+Não é falta de força de vontade. É o organismo trabalhando contra. E é exatamente isso que o LipoBlaze ajuda a virar. Posso te explicar?</div>
+    </div>
+
+    <!-- APRESENTAÇÃO -->
+    <div class="sub">
+      <h3 class="emerald"><span class="num">2</span> Apresentação do produto</h3>
+      <p class="lead">Aqui o foco é "trabalha 24h" e "ataca 5 frentes do emagrecimento feminino". Sem citar lipedema.</p>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Apresentação principal</span>
+        <button class="copy-btn" data-copy="ema-apres-1">Copiar</button>
+      </div>
+      <div class="script-body" id="ema-apres-1">O LipoBlaze é um suplemento natural com 8 ingredientes. Ele trabalha 24 horas por dia no seu corpo, agindo de dentro pra fora.
+
+A diferença dele é que ele ataca 5 coisas ao mesmo tempo, que são exatamente o que trava o emagrecimento da maioria das mulheres:
+
+🔥 Acelera a queima da gordura, principalmente a localizada (laranja moro)
+💧 Reduz inchaço e ajuda o corpo a eliminar toxinas (fibra de beterraba e ágar)
+🍫 Estabiliza o açúcar no sangue, então corta a vontade de doce que sabota qualquer dieta (cromo)
+🧠 Equilibra a parte emocional, então você não come por ansiedade (L triptofano)
+💪 Dá energia, melhora circulação e firma a pele (colágeno e L arginina)</div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Resultado realista · sem promessa numérica</span>
+        <button class="copy-btn" data-copy="ema-apres-2">Copiar</button>
+      </div>
+      <div class="script-body" id="ema-apres-2">As primeiras coisas que as mulheres relatam, e isso já a partir dos 15 dias, são:
+
+Roupa caindo melhor, principalmente saia e calça.
+Menos inchaço de manhã e no fim do dia.
+Mais disposição (a maioria fala que parece que ligaram um interruptor de energia).
+Menos vontade de doce no meio da tarde.
+
+Os resultados visíveis pra quem te vê de fora costumam aparecer no segundo mês. No terceiro mês as medidas ficam firmes.</div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Versão curta · quando ela tá com pressa ou já entendeu o produto<span class="variant">apresenta tudo em 1 mensagem só</span></span>
+        <button class="copy-btn" data-copy="ema-apres-3">Copiar</button>
+      </div>
+      <div class="script-body" id="ema-apres-3">Resumindo pra você não cansar de ler 💗
+
+LipoBlaze é suplemento natural com 8 ingredientes, age 24 horas por dia. Ataca 5 frentes ao mesmo tempo: queima de gordura, inchaço, vontade de doce, energia e firmeza da pele.
+
+São 2 cápsulas por dia depois das refeições. Em 15 dias você sente, em 90 dias o resultado se firma.
+
+Garantia de 7 dias. Se não gostar, devolve.</div>
+    </div>
+
+    <!-- OFERTA -->
+    <div class="sub">
+      <h3 class="emerald"><span class="num">3</span> Apresentação da oferta</h3>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Posologia + porque 3 meses</span>
+        <button class="copy-btn" data-copy="ema-of-1">Copiar</button>
+      </div>
+      <div class="script-body" id="ema-of-1">Tomar é simples. 2 cápsulas por dia, sempre depois das refeições principais. Pode ser café da manhã e almoço, ou almoço e jantar. Como ficar melhor pra você.
+
+Sobre os kits, eu sempre indico o de 3 meses, e tem um motivo prático.
+
+No primeiro mês o corpo tá desinflamando e desinchando. No segundo mês a queima fica consistente e a roupa começa a sobrar. No terceiro mês o resultado se firma e não volta.
+
+Se você for de 1 pote, vai sentir uma melhora, mas não vai colher o resultado completo. Por isso o kit de 3 é o mais escolhido pelas nossas clientes.</div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Os números · enviar enxuto</span>
+        <button class="copy-btn" data-copy="ema-of-2">Copiar</button>
+      </div>
+      <div class="script-body" id="ema-of-2">O kit de 3 meses tá com 25% de desconto.
+
+R$ 118,50 cada pote, total de R$ 355,50.
+
+12x de R$ 36,77 no cartão. Também aceita Pix.
+
+Posso te mandar o link?</div>
+    </div>
+
+    <!-- OBJEÇÕES -->
+    <div class="sub">
+      <h3 class="emerald"><span class="num">4</span> Quebra de objeções</h3>
+      <p class="lead">Mesmas objeções, respostas adaptadas para o tom emagrecimento.</p>
+    </div>
+
+    <div class="obj-grid">
+
+      <div class="obj-card">
+        <div class="q">Objeção · preço</div>
+        <div class="obj">"Tá caro pra mim"</div>
+        <button class="copy-btn" data-copy="ema-obj-1">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="ema-obj-1">Eu te entendo, e é bom mesmo pensar antes de gastar 💗
+
+Olha pelo lado da diluição. R$ 355,50 dividido por 90 dias dá menos de R$ 4 por dia, pra um tratamento natural que age em 5 frentes ao mesmo tempo.
+
+E como dá pra parcelar em 12x de R$ 36,77 sem juros, costuma caber bem na fatura, sem apertar o orçamento.
+
+Vale lembrar também que tem 7 dias de garantia. Se não funcionar pra você, devolve.</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · vai pensar</div>
+        <div class="obj">"Vou pensar"</div>
+        <button class="copy-btn" data-copy="ema-obj-2">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="ema-obj-2">Sem problema, pensa com calma 💗
+
+Só te aviso uma coisa pra você não perder. O desconto de 25% é da campanha que tá rodando agora. Se você quiser, eu deixo seu pedido reservado por algumas horas pra travar o valor. Sem compromisso. Topa?</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · ceticismo</div>
+        <div class="obj">"Será que funciona?"</div>
+        <button class="copy-btn" data-copy="ema-obj-3">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="ema-obj-3">É uma dúvida válida. Por isso a garantia é 7 dias incondicional.
+
+Você toma, sente como o seu corpo responde nessa primeira semana, e se não gostar, a gente devolve seu dinheiro sem complicação.
+
+O risco é todo da gente.</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · cansaço</div>
+        <div class="obj">"Já tentei tantas coisas"</div>
+        <button class="copy-btn" data-copy="ema-obj-4">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="ema-obj-4">Eu te entendo. Cada uma já tentou um monte de coisa.
+
+A maioria do que tem por aí ataca uma coisa só. Ou só queima de gordura, ou só corta a fome, ou só acelera. E aí o resto continua sabotando.
+
+O LipoBlaze foi formulado pra atacar 5 frentes ao mesmo tempo. É por isso que ele responde quando outras coisas não responderam.</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · efeito colateral</div>
+        <div class="obj">"Vai me deixar acelerada / sem dormir?"</div>
+        <button class="copy-btn" data-copy="ema-obj-5">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="ema-obj-5">Não, fica tranquila 💗
+
+Não tem termogênico forte, não tem cafeína em dose alta, não acelera coração nem tira o sono. Os ingredientes são naturais e você inclusive já conhece (cúrcuma, colágeno, fibra de beterraba, extrato de laranja).
+
+Aliás, um dos ingredientes (L triptofano) ajuda a melhorar o sono e o humor.</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · saúde</div>
+        <div class="obj">"Tenho diabetes / pressão alta"</div>
+        <button class="copy-btn" data-copy="ema-obj-6">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="ema-obj-6">O LipoBlaze é natural e costuma ser bem tranquilo. Inclusive o cromo ajuda na regulação da glicose.
+
+Mas o protocolo aqui é claro: leva a composição pro seu médico antes de começar, principalmente se você toma remédio contínuo. Posso te enviar a lista dos 8 ingredientes pra você mostrar pra ele.</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · expectativa</div>
+        <div class="obj">"Quanto eu vou perder?"</div>
+        <button class="copy-btn" data-copy="ema-obj-7">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="ema-obj-7">Eu não vou te dar um número exato porque seria desonesto, cada corpo responde de um jeito.
+
+Mas o que as nossas clientes relatam é o seguinte: nas primeiras 2 semanas você sente roupa caindo melhor e desinchaço. No segundo mês as medidas começam a cair de verdade. No terceiro mês os resultados se firmam.
+
+A combinação esperada de inchaço perdido + gordura queimada costuma ser bem visível.</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · efeito sanfona</div>
+        <div class="obj">"E se eu parar de tomar, volta tudo?"</div>
+        <button class="copy-btn" data-copy="ema-obj-8">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="ema-obj-8">Boa pergunta 😊
+
+Se você fizer o tratamento completo (3 meses no mínimo) e mantiver alimentação minimamente equilibrada, o resultado se firma. O corpo desinflama, regula a glicose, a vontade de doce diminui, e você sai num lugar bem melhor do que começou.
+
+O que faz "voltar tudo" é parar no meio, antes do organismo se reorganizar. Por isso eu insisto no kit de 3 meses, é o tempo necessário.</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · prazo</div>
+        <div class="obj">"Quanto tempo demora pra chegar?"</div>
+        <button class="copy-btn" data-copy="ema-obj-9">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="ema-obj-9">Depois do pagamento, sai em até 1 dia útil. A entrega leva de 3 a 7 dias úteis em média, varia por região.
+
+Você recebe o código de rastreio no email pra acompanhar.</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · confiança</div>
+        <div class="obj">"É confiável esse site?"</div>
+        <button class="copy-btn" data-copy="ema-obj-10">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="ema-obj-10">Confiável sim 💗
+
+O checkout é processado pela Kiwify, uma das maiores plataformas de pagamento do Brasil. É a mesma plataforma que processa milhões em compras todo mês. Sua compra fica registrada com nota e garantia.</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · pagamento</div>
+        <div class="obj">"Posso parcelar? Aceita Pix?"</div>
+        <button class="copy-btn" data-copy="ema-obj-11">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="ema-obj-11">Aceita Pix e cartão de crédito em até 12x sem juros 😊
+
+No cartão, o kit de 3 fica 12x de R$ 36,77, dá menos que muita assinatura mensal por aí. Você escolhe a forma que ficar melhor pra sua rotina.</div>
+      </div>
+
+      <div class="obj-card">
+        <div class="q">Objeção · privacidade</div>
+        <div class="obj">"Vai aparecer o que na fatura?"</div>
+        <button class="copy-btn" data-copy="ema-obj-12">Copiar</button>
+        <div class="a-label">Resposta</div>
+        <div class="a" id="ema-obj-12">Como o pagamento passa pela Kiwify, na fatura aparece o nome da plataforma processadora, não fica nada chamativo. Pode ficar tranquila 💗</div>
+      </div>
+
+    </div>
+
+    <!-- FECHAMENTO -->
+    <div class="sub">
+      <h3 class="emerald"><span class="num">5</span> Fechamento</h3>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Fechamento A · com escolha</span>
+        <button class="copy-btn" data-copy="ema-close-1">Copiar</button>
+      </div>
+      <div class="script-body" id="ema-close-1">E aí, te conta. Você prefere começar com o kit de 3 meses (que é o mais escolhido e cobre o tempo necessário pro resultado se firmar), ou quer ir mais no leve com 1 pote?
+
+Eu te indico o de 3, mas a decisão é sua 💗</div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Fechamento B · direto</span>
+        <button class="copy-btn" data-copy="ema-close-2">Copiar</button>
+      </div>
+      <div class="script-body" id="ema-close-2">Posso já te enviar o link do kit de 3 meses pra você fechar?</div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Fechamento C · três opções</span>
+        <button class="copy-btn" data-copy="ema-close-3">Copiar</button>
+      </div>
+      <div class="script-body" id="ema-close-3">Vou te resumir as opções principais pra ficar fácil:
+
+1 pote por R$ 158. Você testa.
+Kit 3 meses por R$ 355,50, com 25% off. O mais escolhido.
+Kit 6 meses por R$ 568,80, com 40% off. Sai R$ 94,80 o pote.
+
+Qual desses faz mais sentido pra você?</div>
+    </div>
+
+    <!-- UPSELL -->
+    <div class="sub">
+      <h3 class="emerald"><span class="num">6</span> Upsell sutil</h3>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Upsell A · valor por pote</span>
+        <button class="copy-btn" data-copy="ema-up-1">Copiar</button>
+      </div>
+      <div class="script-body" id="ema-up-1">Boa escolha! Antes do link, deixa eu te falar uma coisinha rápida.
+
+Várias clientes que pegam o kit de 3 acabam comprando o segundo antes de terminar, porque o resultado pega ritmo no segundo mês e elas não querem pausar.
+
+Se você quiser pegar o de 6 meses agora, sai R$ 94,80 cada pote em vez de R$ 118,50. Você economiza R$ 142 e já fecha o tratamento completo.
+
+Quer ver nessa opção, ou prefere o de 3 mesmo?</div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Upsell B · efeito sanfona evitado</span>
+        <button class="copy-btn" data-copy="ema-up-2">Copiar</button>
+      </div>
+      <div class="script-body" id="ema-up-2">Só uma observação importante.
+
+O que faz a maioria das mulheres "voltar atrás" é parar de tomar antes do organismo se reorganizar de verdade. Em 3 meses já tá bom, em 6 meses fica blindado.
+
+Por isso muitas optam pelo de 6 logo, sai mais barato e elas não correm risco. Mas qualquer um dos dois caminhos a gente conduz junto, viu? 💗</div>
+    </div>
+
+  </section>
+
+  <!-- ========== COMUM ÀS DUAS PERSONAS ========== -->
+  <section id="comum" class="section">
+    <h2 class="section-title">Pós contato · vale para as duas personas</h2>
+    <p class="section-sub">Envio do link, follow up de quem sumiu, e mensagem pós compra.</p>
+
+    <div class="sub">
+      <h3><span class="num">1</span> Envio do link · imediatamente após o sim</h3>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Envio do link Kiwify</span>
+        <button class="copy-btn" data-copy="link-1">Copiar</button>
+      </div>
+      <div class="script-body" id="link-1">Perfeito! Tô te enviando o link agora 💗
+
+[colar o link Kiwify aqui]
+
+Esse é o link oficial, processado pela Kiwify. Você pode pagar no Pix ou no cartão de crédito em até 12x, como preferir.
+
+Qualquer travamento na hora de preencher, me chama por aqui que eu te ajudo na hora 😊</div>
+    </div>
+
+    <div class="sub">
+      <h3><span class="num">2</span> Follow up · ela recebeu o link e sumiu</h3>
+      <p class="lead">3 toques, espaçados. Se não responder, parou. Não vire chata.</p>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Toque 1 · 30 a 60 minutos depois</span>
+        <button class="copy-btn" data-copy="fu-1">Copiar</button>
+      </div>
+      <div class="script-body" id="fu-1">Oi [nome], conseguiu finalizar aí?
+
+Se travou em algum passo (preencher endereço, escolher pagamento, qualquer coisa), me chama que eu te ajudo na hora 😊</div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Toque 2 · algumas horas depois (mesmo dia)</span>
+        <button class="copy-btn" data-copy="fu-2">Copiar</button>
+      </div>
+      <div class="script-body" id="fu-2">Oi linda, tudo bem?
+
+Só passando aqui pra te dizer que se você não conseguiu finalizar agora, sem problema. Posso reservar a oferta com o desconto de 25% até amanhã pra você não perder.
+
+Me avisa o que decidir 💗</div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Toque 3 · no dia seguinte</span>
+        <button class="copy-btn" data-copy="fu-3">Copiar</button>
+      </div>
+      <div class="script-body" id="fu-3">Oi [nome], tudo bem por aí?
+
+Você ainda tem interesse em começar o tratamento? Se mudou de ideia, sem problema, eu não quero te incomodar.
+
+Mas se for por causa de alguma dúvida que eu não tirei direito, me fala que eu resolvo agora.</div>
+    </div>
+
+    <div class="sub">
+      <h3><span class="num">3</span> Pós compra · ela pagou</h3>
+      <p class="lead">Esse momento aqui prepara a fidelização. Bom pós venda gera reposição.</p>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Mensagem de recebimento</span>
+        <button class="copy-btn" data-copy="pos-1">Copiar</button>
+      </div>
+      <div class="script-body" id="pos-1">Recebi a confirmação aqui 💗
+
+Tô muito feliz por você ter dado esse passo. Agora 3 coisas importantes pra você guardar.
+
+1. O envio sai em até 1 dia útil. O código de rastreio chega no seu email assim que sair.
+
+2. Quando o produto chegar, comece a tomar 2 cápsulas por dia, sempre depois das refeições principais. Café da manhã + almoço, ou almoço + jantar. O que ficar melhor pra você.
+
+3. Tira foto antes de começar. Foto das pernas, da barriga, da balança. Em 30 dias você vai querer comparar e a memória engana.
+
+Eu vou te chamar daqui a uns 15 dias pra ver como tá indo, beleza? Qualquer coisa antes disso, me chama por aqui.</div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Check in dos 15 dias</span>
+        <button class="copy-btn" data-copy="pos-2">Copiar</button>
+      </div>
+      <div class="script-body" id="pos-2">Oi [nome], tudo bem? 💗
+
+Aqui é a Fernanda do LipoBlaze. Você começou a tomar há mais ou menos 15 dias, então tô passando rapidinho pra saber como você tá se sentindo.
+
+Notou alguma coisa? Inchaço, energia, vontade de doce, sono, alguma diferença na roupa?</div>
+    </div>
+
+    <div class="script">
+      <div class="script-head">
+        <span class="script-label">Check in dos 60 dias · prepara reposição</span>
+        <button class="copy-btn" data-copy="pos-3">Copiar</button>
+      </div>
+      <div class="script-body" id="pos-3">Oi [nome] 💗
+
+Tô passando aqui pra fazer o check in dos 2 meses. Como você tá se sentindo?
+
+Aproveito pra te lembrar de uma coisa importante. Você ainda tem 1 mês de produto pela frente. Pra não correr o risco de pausar (e perder o ritmo que você conquistou), eu costumo indicar pegar a reposição agora, ainda dentro da campanha de desconto.
+
+Quer que eu te passe os valores atualizados pra você decidir com calma?</div>
+    </div>
+  </section>
+
+  <!-- ========== CHEAT SHEET ========== -->
+  <section id="cheat" class="cheat">
+    <h2>Cheat sheet · cola na parede</h2>
+    <div class="cheat-grid">
+
+      <div class="cheat-block">
+        <h4>Preços decorados</h4>
+        <ul>
+          <li>1 pote: R$ 158</li>
+          <li>3 potes: R$ 355,50 (25% off)</li>
+          <li>6 potes: R$ 568,80 (40% off)</li>
+          <li>12 potes: R$ 948 (50% off)</li>
+        </ul>
+      </div>
+
+      <div class="cheat-block">
+        <h4>Frases que sempre fecham</h4>
+        <ul>
+          <li>"Eu te indico o de 3 meses, mas a decisão é sua."</li>
+          <li>"O risco fica com a gente, não com você."</li>
+          <li>"Posso te mandar o link agora?"</li>
+          <li>"Tô feliz por você ter dado esse passo."</li>
+        </ul>
+      </div>
+
+      <div class="cheat-block">
+        <h4>Nunca diga</h4>
+        <ul>
+          <li>"Cura o lipedema."</li>
+          <li>"Você vai perder X kg."</li>
+          <li>"Promete antes e depois."</li>
+          <li>"Você precisa emagrecer."</li>
+          <li>"Está gorda / errada / fora do peso."</li>
+        </ul>
+      </div>
+
+      <div class="cheat-block">
+        <h4>Identifique a persona rápido</h4>
+        <ul>
+          <li>Pergunta: "Pernas ou emagrecimento?"</li>
+          <li>Pernas, dor, inchaço, lipedema → Lipedema</li>
+          <li>Medidas, doce, energia, gordura → Emagrecimento</li>
+          <li>Na dúvida, pergunta de novo.</li>
+        </ul>
+      </div>
+
+      <div class="cheat-block">
+        <h4>Posologia de cor</h4>
+        <ul>
+          <li>2 cápsulas por dia</li>
+          <li>Sempre após a refeição</li>
+          <li>Café + almoço, ou almoço + jantar</li>
+          <li>60 cápsulas por pote = 1 mês</li>
+        </ul>
+      </div>
+
+      <div class="cheat-block">
+        <h4>O que vender, na ordem</h4>
+        <ul>
+          <li>Sempre ofertar o kit de 3 primeiro</li>
+          <li>Se ela aceitar, tentar subir pro 6 com elegância</li>
+          <li>Se ela hesitar, oferecer 1 pote como porta de entrada</li>
+          <li>Kit de 12 só sob demanda dela</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    Material interno · LipoBlaze · Equipe de Vendas e Suporte · Atualize sempre que houver mudança de preço, promoção ou política de envio.
+  </footer>
+
+</div>
+
+<script>
+document.addEventListener('click', function(e){
+  if(!e.target.classList.contains('copy-btn')) return;
+  const btn = e.target;
+  const id = btn.getAttribute('data-copy');
+  const el = document.getElementById(id);
+  if(!el) return;
+  const text = el.innerText.trim();
+  navigator.clipboard.writeText(text).then(()=>{
+    const original = btn.innerText;
+    btn.innerText = 'Copiado ✓';
+    btn.classList.add('copied');
+    setTimeout(()=>{
+      btn.innerText = original;
+      btn.classList.remove('copied');
+    }, 1600);
+  }).catch(()=>{
+    // fallback for older browsers
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try{ document.execCommand('copy'); }catch(_){}
+    document.body.removeChild(ta);
+    btn.innerText = 'Copiado ✓';
+    btn.classList.add('copied');
+    setTimeout(()=>{
+      btn.innerText = 'Copiar';
+      btn.classList.remove('copied');
+    }, 1600);
+  });
+});
+</script>
+
+</body>
+</html>
