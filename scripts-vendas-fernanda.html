@@ -203,6 +203,53 @@ body{
 .principle h4.do + ul li::before{background:var(--emerald)}
 .principle h4.dont + ul li::before{background:var(--rose)}
 
+/* Link cards */
+.link-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.link-card{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:16px;padding:24px 26px;box-shadow:var(--shadow);
+  position:relative;overflow:hidden;
+}
+.link-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px}
+.link-rose::before{background:var(--rose)}
+.link-emerald::before{background:var(--emerald)}
+.link-card-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.link-icon{font-size:22px}
+.link-card h3{font-size:17px;font-weight:700;letter-spacing:-.01em}
+.link-rose h3{color:var(--rose-deep)}
+.link-emerald h3{color:var(--emerald-deep)}
+.link-channels{display:flex;flex-direction:column;gap:18px;margin-top:18px}
+.link-channel h4{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:10px}
+.link-buttons{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.link-btn{
+  background:#FBF8F2;border:1px solid var(--line);
+  border-radius:10px;padding:11px 14px;cursor:pointer;
+  font-family:inherit;text-align:left;
+  display:flex;flex-direction:column;gap:1px;
+  transition:all .15s;color:var(--ink);position:relative;
+}
+.link-btn strong{font-weight:700;font-size:13.5px}
+.link-btn small{font-size:11.5px;color:var(--muted);font-weight:500}
+.link-btn:hover{border-color:var(--ink);background:#fff;transform:translateY(-1px);box-shadow:0 4px 12px rgba(26,21,48,.08)}
+.link-btn.featured{background:var(--ink);border-color:var(--ink);color:#fff}
+.link-btn.featured small{color:rgba(255,255,255,.72)}
+.link-btn.featured::after{
+  content:"TOP";position:absolute;top:9px;right:10px;
+  font-size:9px;font-weight:700;letter-spacing:.1em;
+  background:rgba(255,255,255,.18);color:#fff;
+  padding:2px 6px;border-radius:4px;
+}
+.link-btn.copied{background:var(--emerald)!important;color:#fff!important;border-color:var(--emerald)}
+.link-btn.copied small{color:rgba(255,255,255,.85)!important}
+.link-note{
+  background:#FAF1DD;border:1px solid #ECDCB1;border-radius:12px;
+  padding:14px 18px;font-size:13.5px;color:#7A521C;margin-top:18px;line-height:1.6;
+}
+.link-note strong{font-weight:700}
+@media (max-width:880px){
+  .link-grid{grid-template-columns:1fr}
+}
+
 /* Cheatsheet */
 .cheat{background:#1A1530;color:#fff;border-radius:20px;padding:32px;margin-top:48px}
 .cheat h2{font-size:22px;font-weight:700;margin-bottom:20px}
@@ -308,6 +355,63 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:32px 0 0}
         <h4>Envio</h4>
         <p>Sai em até 1 dia útil após confirmação. Prazo de entrega varia por região, em média 3 a 7 dias úteis.</p>
       </div>
+    </div>
+
+    <h3 style="font-size:15px;font-weight:700;letter-spacing:-.01em;margin:32px 0 4px;color:var(--ink)">Links Kiwify pra enviar no WhatsApp</h3>
+    <p class="section-sub" style="margin-bottom:14px">Clique no kit que a cliente escolheu, o link já fica copiado. Cole no WhatsApp.</p>
+
+    <div class="link-grid">
+
+      <div class="link-card link-rose">
+        <div class="link-card-head">
+          <span class="link-icon">🌿</span>
+          <h3>Persona Lipedema</h3>
+        </div>
+        <div class="link-buttons" style="margin-top:14px">
+          <button class="link-btn" data-copy-text="https://pay.kiwify.com.br/cl1jqNP?src=Plataforma%3A+Kiwify+%7C+LPB2+-+Etapa%3A+Front+-+Canal%3A+WHATSAPP+%7C+1+POTE+-+LIP">
+            <strong>1 pote</strong>
+            <small>R$ 158</small>
+          </button>
+          <button class="link-btn featured" data-copy-text="https://pay.kiwify.com.br/MQyjFCF?src=Plataforma%3A+Kiwify+%7C+LPB2+-+Etapa%3A+Front+-+Canal%3A+WHATSAPP+%7C+3+POTE+-+LIP">
+            <strong>3 potes</strong>
+            <small>R$ 355,50</small>
+          </button>
+          <button class="link-btn" data-copy-text="https://pay.kiwify.com.br/O4cAoiP?src=Plataforma%3A+Kiwify+%7C+LPB2+-+Etapa%3A+Front+-+Canal%3A+WHATSAPP+%7C+6+POTE+-+LIP">
+            <strong>6 potes</strong>
+            <small>R$ 568,80</small>
+          </button>
+          <button class="link-btn" data-copy-text="https://pay.kiwify.com.br/oM6evqV?src=Plataforma%3A+Kiwify+%7C+LPB2+-+Etapa%3A+Front+-+Canal%3A+WHATSAPP+%7C+12+POTE+-+LIP">
+            <strong>12 potes</strong>
+            <small>R$ 948</small>
+          </button>
+        </div>
+      </div>
+
+      <div class="link-card link-emerald">
+        <div class="link-card-head">
+          <span class="link-icon">⚡</span>
+          <h3>Persona Emagrecimento</h3>
+        </div>
+        <div class="link-buttons" style="margin-top:14px">
+          <button class="link-btn" data-copy-text="https://pay.kiwify.com.br/rTk3kPl?src=Plataforma%3A+Kiwify+%7C+LPB2+-+Etapa%3A+Front+-+Canal%3A+WHATSAPP+%7C+EMAG+-+1+POTE">
+            <strong>1 pote</strong>
+            <small>R$ 158</small>
+          </button>
+          <button class="link-btn featured" data-copy-text="https://pay.kiwify.com.br/DsbO4T2?src=Plataforma%3A+Kiwify+%7C+LPB2+-+Etapa%3A+Front+-+Canal%3A+WHATSAPP+%7C+EMAG+-+3+POTE">
+            <strong>3 potes</strong>
+            <small>R$ 355,50</small>
+          </button>
+          <button class="link-btn" data-copy-text="https://pay.kiwify.com.br/c8US7nJ?src=Plataforma%3A+Kiwify+%7C+LPB2+-+Etapa%3A+Front+-+Canal%3A+WHATSAPP+%7C+EMAG+-+6+POTE">
+            <strong>6 potes</strong>
+            <small>R$ 568,80</small>
+          </button>
+          <button class="link-btn" data-copy-text="https://pay.kiwify.com.br/7ZpCd21?src=Plataforma%3A+Kiwify+%7C+LPB2+-+Etapa%3A+Front+-+Canal%3A+WHATSAPP+%7C+EMAG+-+12+POTE">
+            <strong>12 potes</strong>
+            <small>R$ 948</small>
+          </button>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -1051,6 +1155,7 @@ Por isso muitas optam pelo de 6 logo, sai mais barato e elas não correm risco. 
 
     <div class="sub">
       <h3><span class="num">1</span> Envio do link · imediatamente após o sim</h3>
+      <p class="lead">Antes de copiar o template abaixo, suba até a <a href="#referencia" style="color:var(--rose);font-weight:600;text-decoration:none">Referência rápida</a> e copie o link da persona e do kit corretos. Cole no lugar de <code style="background:#FAF1DD;padding:2px 6px;border-radius:4px;font-family:inherit">[colar o link Kiwify aqui]</code>.</p>
     </div>
 
     <div class="script">
@@ -1233,35 +1338,51 @@ Quer que eu te passe os valores atualizados pra você decidir com calma?</div>
 
 <script>
 document.addEventListener('click', function(e){
-  if(!e.target.classList.contains('copy-btn')) return;
-  const btn = e.target;
-  const id = btn.getAttribute('data-copy');
-  const el = document.getElementById(id);
-  if(!el) return;
-  const text = el.innerText.trim();
-  navigator.clipboard.writeText(text).then(()=>{
-    const original = btn.innerText;
-    btn.innerText = 'Copiado ✓';
+  const btn = e.target.closest('.copy-btn, .link-btn');
+  if(!btn) return;
+
+  let text = '';
+  let originalHTML = btn.innerHTML;
+  const directText = btn.getAttribute('data-copy-text');
+
+  if(directText){
+    text = directText;
+  } else {
+    const id = btn.getAttribute('data-copy');
+    const el = id ? document.getElementById(id) : null;
+    if(!el) return;
+    text = el.innerText.trim();
+  }
+
+  function flash(){
     btn.classList.add('copied');
+    if(btn.classList.contains('link-btn')){
+      btn.innerHTML = '<strong>Copiado ✓</strong><small>cole no WhatsApp</small>';
+    } else {
+      btn.innerText = 'Copiado ✓';
+    }
     setTimeout(()=>{
-      btn.innerText = original;
+      btn.innerHTML = originalHTML;
       btn.classList.remove('copied');
-    }, 1600);
-  }).catch(()=>{
-    // fallback for older browsers
+    }, 1800);
+  }
+
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(flash).catch(fallback);
+  } else {
+    fallback();
+  }
+
+  function fallback(){
     const ta = document.createElement('textarea');
     ta.value = text;
+    ta.style.position='fixed';ta.style.opacity='0';
     document.body.appendChild(ta);
     ta.select();
     try{ document.execCommand('copy'); }catch(_){}
     document.body.removeChild(ta);
-    btn.innerText = 'Copiado ✓';
-    btn.classList.add('copied');
-    setTimeout(()=>{
-      btn.innerText = 'Copiar';
-      btn.classList.remove('copied');
-    }, 1600);
-  });
+    flash();
+  }
 });
 </script>
 
