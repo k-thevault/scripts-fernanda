@@ -250,6 +250,94 @@ body{
   .link-grid{grid-template-columns:1fr}
 }
 
+/* Follow up groups */
+.fu-group{margin-top:30px}
+.fu-group:first-of-type{margin-top:14px}
+.fu-group-label{
+  font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;
+  font-weight:700;color:var(--ink);
+  margin-bottom:14px;padding:11px 16px;
+  background:#FBF8F2;border-left:3px solid var(--ink);
+  border-radius:0 10px 10px 0;
+}
+
+/* Sidebar layout (desktop only) */
+.sidebar-nav{display:none}
+@media (min-width:960px){
+  .container{
+    max-width:1380px;
+    display:grid;grid-template-columns:230px 1fr;
+    gap:30px;align-items:start;
+  }
+  .sidebar-nav{
+    display:block;
+    position:sticky;top:96px;
+    align-self:start;
+    max-height:calc(100vh - 116px);
+    overflow-y:auto;
+    padding:18px 8px 18px 0;
+    font-size:13px;
+  }
+}
+.sidebar-nav::-webkit-scrollbar{width:6px}
+.sidebar-nav::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+.sidebar-nav .nav-title{
+  font-size:13px;font-weight:700;color:var(--ink);letter-spacing:-.01em;
+  padding:0 12px 12px;border-bottom:1px solid var(--line);margin-bottom:10px;
+  display:flex;align-items:center;gap:8px;
+}
+.sidebar-nav .nav-title::before{content:"☰";font-size:14px;color:var(--rose)}
+.sidebar-nav h5{
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);font-weight:700;
+  margin-top:16px;margin-bottom:4px;padding-left:14px;
+}
+.sidebar-nav h5:first-of-type{margin-top:4px}
+.sidebar-nav ul{list-style:none;padding:0;margin:0 0 4px}
+.sidebar-nav a{
+  display:block;padding:6px 12px;border-radius:8px;
+  color:var(--ink-soft);text-decoration:none;
+  font-weight:500;line-height:1.35;
+  transition:all .12s;
+  border-left:3px solid transparent;
+  margin:1px 0;font-size:12.5px;
+}
+.sidebar-nav a:hover{background:#FBF8F2;color:var(--ink)}
+.sidebar-nav a.lvl2{
+  font-size:12px;padding:4px 12px 4px 22px;color:var(--muted);font-weight:500;
+}
+.sidebar-nav a.lvl2:hover{color:var(--ink)}
+.sidebar-nav a.rose:hover{background:var(--rose-soft);border-left-color:var(--rose);color:var(--rose-deep)}
+.sidebar-nav a.emerald:hover{background:var(--emerald-soft);border-left-color:var(--emerald);color:var(--emerald-deep)}
+.sidebar-nav a.gold:hover{background:#FAF1DD;border-left-color:var(--gold);color:#7A521C}
+.main-col{min-width:0}
+
+/* Connection messages */
+.msg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:12px;margin-top:6px}
+.msg-card{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:12px;padding:14px 16px 14px 18px;
+  box-shadow:var(--shadow);position:relative;
+  border-left:3px solid var(--gold);
+}
+.msg-text{
+  font-size:13.5px;color:var(--ink-soft);line-height:1.55;
+  white-space:pre-wrap;padding-right:64px;
+}
+.msg-card .copy-btn{position:absolute;top:12px;right:12px;padding:5px 10px;font-size:11px}
+
+.conn-group{margin-top:30px}
+.conn-group:first-of-type{margin-top:14px}
+.conn-group-head{
+  font-size:14px;font-weight:700;color:var(--ink);
+  margin-bottom:4px;display:flex;align-items:center;gap:10px;
+}
+.conn-group-head::before{
+  content:"";display:inline-block;width:5px;height:18px;
+  background:var(--gold);border-radius:2px;
+}
+.conn-group .lead{color:var(--muted);font-size:13px;margin:2px 0 14px}
+
 /* Cheatsheet */
 .cheat{background:#1A1530;color:#fff;border-radius:20px;padding:32px;margin-top:48px}
 .cheat h2{font-size:22px;font-weight:700;margin-bottom:20px}
@@ -293,6 +381,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:32px 0 0}
       <a class="nav-pill" href="#diagnostico">Diagnóstico</a>
       <a class="nav-pill rose" href="#lipedema">Lipedema</a>
       <a class="nav-pill emerald" href="#emagrecimento">Emagrecimento</a>
+      <a class="nav-pill" href="#conexao">Conexão</a>
       <a class="nav-pill" href="#comum">Pós contato</a>
       <a class="nav-pill" href="#cheat">Cheat sheet</a>
     </nav>
@@ -300,6 +389,69 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:32px 0 0}
 </header>
 
 <div class="container">
+
+  <aside class="sidebar-nav">
+    <div class="nav-title">Índice rápido</div>
+
+    <h5>Início</h5>
+    <ul>
+      <li><a href="#referencia">Referência rápida</a></li>
+      <li><a class="lvl2" href="#referencia">Preços, posologia, garantia</a></li>
+      <li><a class="lvl2" href="#referencia">Links Kiwify (8 botões)</a></li>
+      <li><a href="#principios">Princípios da conversa</a></li>
+      <li><a href="#diagnostico">Diagnóstico inicial</a></li>
+    </ul>
+
+    <h5>Persona Lipedema</h5>
+    <ul>
+      <li><a class="rose" href="#lipedema">Persona Lipedema</a></li>
+      <li><a class="lvl2 rose" href="#lip-validacao">1. Validação inicial</a></li>
+      <li><a class="lvl2 rose" href="#lip-apresentacao">2. Apresentação do produto</a></li>
+      <li><a class="lvl2 rose" href="#lip-oferta">3. Apresentação da oferta</a></li>
+      <li><a class="lvl2 rose" href="#lip-objecoes">4. Quebra de objeções</a></li>
+      <li><a class="lvl2 rose" href="#lip-fechamento">5. Fechamento</a></li>
+      <li><a class="lvl2 rose" href="#lip-upsell">6. Upsell sutil</a></li>
+    </ul>
+
+    <h5>Persona Emagrecimento</h5>
+    <ul>
+      <li><a class="emerald" href="#emagrecimento">Persona Emagrecimento</a></li>
+      <li><a class="lvl2 emerald" href="#ema-validacao">1. Validação inicial</a></li>
+      <li><a class="lvl2 emerald" href="#ema-apresentacao">2. Apresentação do produto</a></li>
+      <li><a class="lvl2 emerald" href="#ema-oferta">3. Apresentação da oferta</a></li>
+      <li><a class="lvl2 emerald" href="#ema-objecoes">4. Quebra de objeções</a></li>
+      <li><a class="lvl2 emerald" href="#ema-fechamento">5. Fechamento</a></li>
+      <li><a class="lvl2 emerald" href="#ema-upsell">6. Upsell sutil</a></li>
+    </ul>
+
+    <h5>Mensagens de conexão</h5>
+    <ul>
+      <li><a class="gold" href="#conexao">Mensagens de conexão</a></li>
+      <li><a class="lvl2 gold" href="#conn-acolhimento">Acolhimento</a></li>
+      <li><a class="lvl2 gold" href="#conn-pontes">Pontes / transições</a></li>
+      <li><a class="lvl2 gold" href="#conn-verifica">Verificação de entendimento</a></li>
+      <li><a class="lvl2 gold" href="#conn-espera">Pedidos de espera</a></li>
+      <li><a class="lvl2 gold" href="#conn-reforco">Reforços / encorajamento</a></li>
+      <li><a class="lvl2 gold" href="#conn-esfriando">Cliente esfriando</a></li>
+      <li><a class="lvl2 gold" href="#conn-extras">Mensagens curinga</a></li>
+    </ul>
+
+    <h5>Pós contato</h5>
+    <ul>
+      <li><a href="#comum">Pós contato (geral)</a></li>
+      <li><a class="lvl2" href="#envio-link">1. Envio do link</a></li>
+      <li><a class="lvl2" href="#fu-durante">2. Follow up · sumiu durante</a></li>
+      <li><a class="lvl2" href="#fu-aposlink">3. Follow up · sumiu após link</a></li>
+      <li><a class="lvl2" href="#pos-compra">4. Pós compra</a></li>
+    </ul>
+
+    <h5>Resumo final</h5>
+    <ul>
+      <li><a href="#cheat">Cheat sheet</a></li>
+    </ul>
+  </aside>
+
+  <main class="main-col">
 
   <section class="hero">
     <span class="badge">Equipe LipoBlaze · Vendas WhatsApp</span>
@@ -491,7 +643,7 @@ Como você se chama? E me conta rapidinho o que tá te incomodando mais hoje, é
     </div>
 
     <!-- ABERTURA / VALIDAÇÃO -->
-    <div class="sub">
+    <div class="sub" id="lip-validacao">
       <h3 class="rose"><span class="num">1</span> Validação inicial · ela acabou de confirmar que é lipedema</h3>
       <p class="lead">Antes de apresentar o produto, você valida a dor dela. Isso constrói confiança.</p>
     </div>
@@ -523,7 +675,7 @@ A boa notícia é que existe um motivo claro pra isso, e o LipoBlaze foi feito j
     </div>
 
     <!-- APRESENTAÇÃO -->
-    <div class="sub">
+    <div class="sub" id="lip-apresentacao">
       <h3 class="rose"><span class="num">2</span> Apresentação do produto</h3>
       <p class="lead">Só apresenta depois que ela disse "pode" ou "manda". Se ela não pediu pra ouvir, ainda não é hora.</p>
     </div>
@@ -559,7 +711,7 @@ Os primeiros sinais aparecem por volta dos 15 dias. Os resultados consistentes v
     </div>
 
     <!-- OFERTA -->
-    <div class="sub">
+    <div class="sub" id="lip-oferta">
       <h3 class="rose"><span class="num">3</span> Apresentação da oferta</h3>
       <p class="lead">Aqui você ancora o kit de 3 meses como o caminho que faz sentido pelo mecanismo do produto.</p>
     </div>
@@ -593,7 +745,7 @@ Posso te enviar o link?</div>
     </div>
 
     <!-- OBJEÇÕES -->
-    <div class="sub">
+    <div class="sub" id="lip-objecoes">
       <h3 class="rose"><span class="num">4</span> Quebra de objeções</h3>
       <p class="lead">Cada card é uma objeção real e a resposta que funciona. Copie e cole, adapte o nome.</p>
     </div>
@@ -733,7 +885,7 @@ Posso te enviar a composição completa em texto pra você levar pro seu médico
     </div>
 
     <!-- FECHAMENTO -->
-    <div class="sub">
+    <div class="sub" id="lip-fechamento">
       <h3 class="rose"><span class="num">5</span> Fechamento</h3>
       <p class="lead">Três variações. Use a que combinar com o tom da conversa.</p>
     </div>
@@ -775,7 +927,7 @@ Qual deles te chama mais atenção?</div>
     </div>
 
     <!-- UPSELL -->
-    <div class="sub">
+    <div class="sub" id="lip-upsell">
       <h3 class="rose"><span class="num">6</span> Upsell sutil · ela já decidiu pelo kit de 3</h3>
       <p class="lead">Antes de mandar o link, ofereça subir pro kit de 6 com elegância. Se ela disser não, você manda o de 3 sem insistir.</p>
     </div>
@@ -821,7 +973,7 @@ Mas qualquer um dos dois você já tá no caminho certo, viu? 😊 Você decide.
     </div>
 
     <!-- VALIDAÇÃO -->
-    <div class="sub">
+    <div class="sub" id="ema-validacao">
       <h3 class="emerald"><span class="num">1</span> Validação inicial · ela quer emagrecer</h3>
       <p class="lead">Sem dramatizar o corpo. Validação é prática, não emocional.</p>
     </div>
@@ -853,7 +1005,7 @@ Não é falta de força de vontade. É o organismo trabalhando contra. E é exat
     </div>
 
     <!-- APRESENTAÇÃO -->
-    <div class="sub">
+    <div class="sub" id="ema-apresentacao">
       <h3 class="emerald"><span class="num">2</span> Apresentação do produto</h3>
       <p class="lead">Aqui o foco é "trabalha 24h" e "ataca 5 frentes do emagrecimento feminino". Sem citar lipedema.</p>
     </div>
@@ -904,7 +1056,7 @@ Garantia de 7 dias. Se não gostar, devolve.</div>
     </div>
 
     <!-- OFERTA -->
-    <div class="sub">
+    <div class="sub" id="ema-oferta">
       <h3 class="emerald"><span class="num">3</span> Apresentação da oferta</h3>
     </div>
 
@@ -937,7 +1089,7 @@ Posso te mandar o link?</div>
     </div>
 
     <!-- OBJEÇÕES -->
-    <div class="sub">
+    <div class="sub" id="ema-objecoes">
       <h3 class="emerald"><span class="num">4</span> Quebra de objeções</h3>
       <p class="lead">Mesmas objeções, respostas adaptadas para o tom emagrecimento.</p>
     </div>
@@ -1079,7 +1231,7 @@ No cartão, o kit de 3 fica 12x de R$ 36,77, dá menos que muita assinatura mens
     </div>
 
     <!-- FECHAMENTO -->
-    <div class="sub">
+    <div class="sub" id="ema-fechamento">
       <h3 class="emerald"><span class="num">5</span> Fechamento</h3>
     </div>
 
@@ -1116,7 +1268,7 @@ Qual desses faz mais sentido pra você?</div>
     </div>
 
     <!-- UPSELL -->
-    <div class="sub">
+    <div class="sub" id="ema-upsell">
       <h3 class="emerald"><span class="num">6</span> Upsell sutil</h3>
     </div>
 
@@ -1148,12 +1300,269 @@ Por isso muitas optam pelo de 6 logo, sai mais barato e elas não correm risco. 
 
   </section>
 
+  <!-- ========== MENSAGENS DE CONEXÃO ========== -->
+  <section id="conexao" class="section">
+    <h2 class="section-title">Mensagens de conexão <span class="tag gold">no meio da conversa</span></h2>
+    <p class="section-sub">Mensagens curtas pra usar entre os blocos principais. Servem pra acolher, fazer pontes, verificar entendimento, ganhar tempo, reforçar boas falas e segurar a cliente quando ela começa a esfriar. Cada cartão é uma mensagem pronta. Clique em copiar e cole.</p>
+
+    <div class="conn-group" id="conn-acolhimento">
+      <div class="conn-group-head">Acolhimento · quando ela compartilha algo difícil</div>
+      <p class="lead">Use logo depois de uma fala vulnerável dela. Antes de oferecer qualquer coisa, valide.</p>
+      <div class="msg-grid">
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-acolh-1">Copiar</button>
+          <div class="msg-text" id="conn-acolh-1">Que difícil você ter passado por isso 💗 te entendo de verdade.</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-acolh-2">Copiar</button>
+          <div class="msg-text" id="conn-acolh-2">Você não tá sozinha. Várias mulheres me contam exatamente o mesmo, palavra por palavra.</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-acolh-3">Copiar</button>
+          <div class="msg-text" id="conn-acolh-3">Não é falta de força de vontade, viu? Acredita em mim. É o corpo trabalhando contra.</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-acolh-4">Copiar</button>
+          <div class="msg-text" id="conn-acolh-4">Eu sinto muito que você tá vivendo isso. Sua frustração faz total sentido.</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-acolh-5">Copiar</button>
+          <div class="msg-text" id="conn-acolh-5">Olha, eu te entendo. Já ouvi essa mesma história aqui umas 50 vezes. E em todos os casos a gente conseguiu virar o jogo 💗</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="conn-group" id="conn-pontes">
+      <div class="conn-group-head">Pontes · pra mudar de assunto sem ser brusca</div>
+      <p class="lead">Use entre uma fala dela e o próximo bloco que você quer apresentar.</p>
+      <div class="msg-grid">
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-pont-1">Copiar</button>
+          <div class="msg-text" id="conn-pont-1">Aproveitando que você falou disso, deixa eu te explicar uma coisa importante.</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-pont-2">Copiar</button>
+          <div class="msg-text" id="conn-pont-2">Antes da gente continuar, posso te perguntar mais uma coisinha rapidinho?</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-pont-3">Copiar</button>
+          <div class="msg-text" id="conn-pont-3">Anota isso aí porque é importante pro que vou te falar agora:</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-pont-4">Copiar</button>
+          <div class="msg-text" id="conn-pont-4">Isso conecta perfeitamente com o que eu queria te explicar 😊</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-pont-5">Copiar</button>
+          <div class="msg-text" id="conn-pont-5">Já vou te responder essa parte. Mas antes, deixa eu garantir uma coisinha:</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-pont-6">Copiar</button>
+          <div class="msg-text" id="conn-pont-6">Olha que interessante o que você tá me contando. Tem tudo a ver com como o LipoBlaze age. Posso te explicar?</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="conn-group" id="conn-verifica">
+      <div class="conn-group-head">Verificação · check rápido se ela tá te acompanhando</div>
+      <p class="lead">Mini-fechamentos pra garantir alinhamento antes de seguir.</p>
+      <div class="msg-grid">
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-veri-1">Copiar</button>
+          <div class="msg-text" id="conn-veri-1">Faz sentido isso pra você?</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-veri-2">Copiar</button>
+          <div class="msg-text" id="conn-veri-2">Ficou claro essa parte ou prefere que eu explique de outro jeito?</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-veri-3">Copiar</button>
+          <div class="msg-text" id="conn-veri-3">Tô conseguindo te ajudar até aqui? 😊</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-veri-4">Copiar</button>
+          <div class="msg-text" id="conn-veri-4">Quer que eu siga com a próxima parte ou tem dúvida nessa ainda?</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-veri-5">Copiar</button>
+          <div class="msg-text" id="conn-veri-5">Você concorda comigo até aqui?</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-veri-6">Copiar</button>
+          <div class="msg-text" id="conn-veri-6">Dá pra ver no seu caso? Ou parece muito distante da sua realidade?</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="conn-group" id="conn-espera">
+      <div class="conn-group-head">Pedidos de espera · ganhar tempo sem deixar ela no vácuo</div>
+      <p class="lead">Use quando você precisa de uns segundos pra digitar uma resposta longa ou checar uma info.</p>
+      <div class="msg-grid">
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-esp-1">Copiar</button>
+          <div class="msg-text" id="conn-esp-1">Espera um instantinho que eu tô te buscando uma coisa pra te mostrar 💗</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-esp-2">Copiar</button>
+          <div class="msg-text" id="conn-esp-2">Tô digitando aqui, espera só uns 30 segundinhos 😊</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-esp-3">Copiar</button>
+          <div class="msg-text" id="conn-esp-3">Deixa eu organizar uma resposta direitinho pra você porque sua pergunta merece.</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-esp-4">Copiar</button>
+          <div class="msg-text" id="conn-esp-4">Já te respondo com calma, só vou consultar uma coisa aqui no sistema rapidinho.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="conn-group" id="conn-reforco">
+      <div class="conn-group-head">Reforços · encorajar boas perguntas e decisões</div>
+      <p class="lead">Use depois que ela fizer uma boa pergunta ou demonstrar comprometimento.</p>
+      <div class="msg-grid">
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-ref-1">Copiar</button>
+          <div class="msg-text" id="conn-ref-1">Excelente pergunta. Vou te responder com calma 💗</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-ref-2">Copiar</button>
+          <div class="msg-text" id="conn-ref-2">Você já tá no caminho certo só de pensar nisso. Já é meio caminho andado.</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-ref-3">Copiar</button>
+          <div class="msg-text" id="conn-ref-3">Que bom que você decidiu se cuidar 💗 isso já merece reconhecimento.</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-ref-4">Copiar</button>
+          <div class="msg-text" id="conn-ref-4">É exatamente esse tipo de pergunta que mostra que você tá levando a sério. Adoro.</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-ref-5">Copiar</button>
+          <div class="msg-text" id="conn-ref-5">Pode ficar tranquila, você tá fazendo a escolha certa em buscar informação antes de decidir.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="conn-group" id="conn-esfriando">
+      <div class="conn-group-head">Cliente esfriando · ainda na conversa, antes de virar follow up</div>
+      <p class="lead">Use quando ela começa a demorar demais pra responder mas ainda está ali. Reanima sem pressionar.</p>
+      <div class="msg-grid">
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-esfr-1">Copiar</button>
+          <div class="msg-text" id="conn-esfr-1">Tá conseguindo me acompanhar? 😊</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-esfr-2">Copiar</button>
+          <div class="msg-text" id="conn-esfr-2">Te perdi? Posso simplificar se ficou meio denso.</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-esfr-3">Copiar</button>
+          <div class="msg-text" id="conn-esfr-3">Sem pressa, viu? Tô aqui quando você puder voltar 💗</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-esfr-4">Copiar</button>
+          <div class="msg-text" id="conn-esfr-4">Se ficou alguma dúvida solta aí, manda pra mim. Mesmo que pareça besta. Tô aqui pra isso.</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-esfr-5">Copiar</button>
+          <div class="msg-text" id="conn-esfr-5">Você ainda tá aí?</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="conn-group" id="conn-extras">
+      <div class="conn-group-head">Mensagens curinga · sempre úteis</div>
+      <p class="lead">Pra encaixar onde fizer sentido. Lidando com áudio, com várias perguntas de uma vez, ou pra acalmar uma cliente ansiosa.</p>
+      <div class="msg-grid">
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-ext-1">Copiar</button>
+          <div class="msg-text" id="conn-ext-1">Te ouvi 💗 deixa eu pensar numa resposta boa e já te volto.</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-ext-2">Copiar</button>
+          <div class="msg-text" id="conn-ext-2">Recebi seu áudio. Vou te responder por texto pra ficar mais fácil de você reler depois 😊</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-ext-3">Copiar</button>
+          <div class="msg-text" id="conn-ext-3">Beleza, vou responder uma de cada vez pra ficar organizado, tá bom?</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-ext-4">Copiar</button>
+          <div class="msg-text" id="conn-ext-4">Pega água que vou te mandar uns blocos aqui. São 3 ou 4 mensagens 😊</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-ext-5">Copiar</button>
+          <div class="msg-text" id="conn-ext-5">Calma, fica tranquila. Vou te explicar tudo, passo a passo. Não tem pressa nenhuma.</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-ext-6">Copiar</button>
+          <div class="msg-text" id="conn-ext-6">É bom isso ter aparecido aqui na nossa conversa, porque é uma dúvida que muita cliente tem e quase ninguém pergunta.</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-ext-7">Copiar</button>
+          <div class="msg-text" id="conn-ext-7">Vou te mandar do mesmo jeito que falo com as outras meninas, tá? Sem termo técnico, conversa de mulher pra mulher.</div>
+        </div>
+
+        <div class="msg-card">
+          <button class="copy-btn" data-copy="conn-ext-8">Copiar</button>
+          <div class="msg-text" id="conn-ext-8">Olha, vou ser bem honesta com você, porque acho que você merece a verdade:</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ========== COMUM ÀS DUAS PERSONAS ========== -->
   <section id="comum" class="section">
     <h2 class="section-title">Pós contato · vale para as duas personas</h2>
     <p class="section-sub">Envio do link, follow up de quem sumiu, e mensagem pós compra.</p>
 
-    <div class="sub">
+    <div class="sub" id="envio-link">
       <h3><span class="num">1</span> Envio do link · imediatamente após o sim</h3>
       <p class="lead">Antes de copiar o template abaixo, suba até a <a href="#referencia" style="color:var(--rose);font-weight:600;text-decoration:none">Referência rápida</a> e copie o link da persona e do kit corretos. Cole no lugar de <code style="background:#FAF1DD;padding:2px 6px;border-radius:4px;font-family:inherit">[colar o link Kiwify aqui]</code>.</p>
     </div>
@@ -1172,8 +1581,229 @@ Esse é o link oficial, processado pela Kiwify. Você pode pagar no Pix ou no ca
 Qualquer travamento na hora de preencher, me chama por aqui que eu te ajudo na hora 😊</div>
     </div>
 
-    <div class="sub">
-      <h3><span class="num">2</span> Follow up · ela recebeu o link e sumiu</h3>
+    <div class="sub" id="fu-durante">
+      <h3><span class="num">2</span> Follow up · cliente sumiu durante a conversa</h3>
+      <p class="lead">Use estes scripts quando a cliente parou de responder antes de chegar no envio do link. Os momentos cobertos são os mais comuns. Princípio: 2 toques no máximo, depois 1 mensagem de despedida elegante. Não insista além disso.</p>
+    </div>
+
+    <div class="fu-group">
+      <div class="fu-group-label">→ Sumiu logo no início (não chegou nem a explicar o problema)</div>
+
+      <div class="script">
+        <div class="script-head">
+          <span class="script-label">Toque 1 · 1 a 2 horas depois<span class="variant">tom leve, sem cobrança</span></span>
+          <button class="copy-btn" data-copy="fu-early-1">Copiar</button>
+        </div>
+        <div class="script-body" id="fu-early-1">Oi 💗
+
+Vi que a gente começou a conversar e você sumiu. Tudo bem por aí?
+
+Se foi só corrida do dia, sem stress, eu retomo de onde a gente parou quando você puder.</div>
+      </div>
+
+      <div class="script">
+        <div class="script-head">
+          <span class="script-label">Toque 2 · 24h depois<span class="variant">pergunta direta sem pressão</span></span>
+          <button class="copy-btn" data-copy="fu-early-2">Copiar</button>
+        </div>
+        <div class="script-body" id="fu-early-2">Oi, é a Fernanda 😊
+
+Você ainda quer conversar sobre o LipoBlaze, ou prefere falar outro dia?
+
+Se preferir mais pra frente, me avisa que eu volto a falar contigo na hora que for melhor pra você.</div>
+      </div>
+
+      <div class="script">
+        <div class="script-head">
+          <span class="script-label">Toque 3 · 3 dias depois<span class="variant">despedida com porta aberta</span></span>
+          <button class="copy-btn" data-copy="fu-early-3">Copiar</button>
+        </div>
+        <div class="script-body" id="fu-early-3">Oi 💗
+
+Última mensagem aqui pra não te incomodar mais. Caso queira voltar a conversar sobre o LipoBlaze, é só me chamar.
+
+Boa semana pra você.</div>
+      </div>
+    </div>
+
+    <div class="fu-group">
+      <div class="fu-group-label">→ Sumiu durante a apresentação do produto</div>
+
+      <div class="script">
+        <div class="script-head">
+          <span class="script-label">Toque 1 · 1 a 2 horas depois<span class="variant">tom curioso, oferece simplificar</span></span>
+          <button class="copy-btn" data-copy="fu-mid-1">Copiar</button>
+        </div>
+        <div class="script-body" id="fu-mid-1">Oi, tudo bem por aí?
+
+Você sumiu no meio da minha explicação. Ficou alguma dúvida sobre o produto que eu não respondi direito?
+
+Se quiser, te mando uma versão bem mais curta, em 1 mensagem só. Aí você lê quando der.</div>
+      </div>
+
+      <div class="script">
+        <div class="script-head">
+          <span class="script-label">Persona Lipedema · 24h depois<span class="variant">retoma o problema dela</span></span>
+          <button class="copy-btn" data-copy="fu-mid-lip">Copiar</button>
+        </div>
+        <div class="script-body" id="fu-mid-lip">Oi, é a Fernanda 💗
+
+Lembrei de você. A gente tava conversando sobre como o LipoBlaze trata o lipedema e você não voltou.
+
+Se você quer cuidar das pernas de verdade, eu prefiro retomar a conversa do que deixar passar. Quer que eu te explique de novo, do jeito mais direto possível?</div>
+      </div>
+
+      <div class="script">
+        <div class="script-head">
+          <span class="script-label">Persona Emagrecimento · 24h depois<span class="variant">retoma o objetivo</span></span>
+          <button class="copy-btn" data-copy="fu-mid-ema">Copiar</button>
+        </div>
+        <div class="script-body" id="fu-mid-ema">Oi 💗
+
+Voltando aqui rapidinho. Você tava entendendo como o LipoBlaze ajuda no emagrecimento e parou de responder.
+
+Quer que eu mande um resumo bem curtinho, em 1 mensagem só? Aí você lê na hora que tiver tempo.</div>
+      </div>
+    </div>
+
+    <div class="fu-group">
+      <div class="fu-group-label">→ Sumiu logo depois de saber o preço</div>
+
+      <div class="script">
+        <div class="script-head">
+          <span class="script-label">Toque 1 · 30 a 60 minutos depois<span class="variant">remove o peso do preço</span></span>
+          <button class="copy-btn" data-copy="fu-price-1">Copiar</button>
+        </div>
+        <div class="script-body" id="fu-price-1">Oi 💗
+
+Sei que o preço bate diferente quando a gente vê de uma vez. Eu sempre falo isso pra todas as clientes: é normal.
+
+Se o de 3 meses ficou apertado, a gente conversa as outras opções, ou começa com 1 pote pra você ir testando. Sem pressão nenhuma.</div>
+      </div>
+
+      <div class="script">
+        <div class="script-head">
+          <span class="script-label">Persona Lipedema · 24h depois<span class="variant">parcelamento + investimento na saúde</span></span>
+          <button class="copy-btn" data-copy="fu-price-lip">Copiar</button>
+        </div>
+        <div class="script-body" id="fu-price-lip">Oi, é a Fernanda 💗
+
+Quero te lembrar de uma coisa importante. O kit de 3 meses sai 12x de R$ 36,77 no cartão. Isso dá menos de R$ 4 por dia pra um tratamento que age em 3 frentes do lipedema.
+
+Comparando com 1 sessão de drenagem (que custa entre R$ 80 e R$ 150 e dura 1 sessão), aqui você tem 3 meses inteiros de cuidado contínuo.
+
+Se ainda assim apertar, me fala que eu te oriento pelo kit de 1.</div>
+      </div>
+
+      <div class="script">
+        <div class="script-head">
+          <span class="script-label">Persona Emagrecimento · 24h depois<span class="variant">parcelamento + diluição</span></span>
+          <button class="copy-btn" data-copy="fu-price-ema">Copiar</button>
+        </div>
+        <div class="script-body" id="fu-price-ema">Oi 💗
+
+Sobre o preço. No cartão, o kit de 3 meses fica 12x de R$ 36,77, sem juros. Isso dá menos de R$ 4 por dia, durante 3 meses inteiros de tratamento.
+
+Se quiser, eu te mando um print de como ficaria parcelado pra você ver se cabe na sua fatura. E lembra que tem 7 dias de garantia, se não funcionar a gente devolve.</div>
+      </div>
+    </div>
+
+    <div class="fu-group">
+      <div class="fu-group-label">→ Sumiu depois de dizer "vou pensar"</div>
+
+      <div class="script">
+        <div class="script-head">
+          <span class="script-label">Toque 1 · 24h depois<span class="variant">leve e direto</span></span>
+          <button class="copy-btn" data-copy="fu-think-1">Copiar</button>
+        </div>
+        <div class="script-body" id="fu-think-1">Oi, tudo bem? 💗
+
+Pensou aí?
+
+Se ainda tá em dúvida, me chama. Qualquer coisa que esteja te segurando eu resolvo agora.</div>
+      </div>
+
+      <div class="script">
+        <div class="script-head">
+          <span class="script-label">Toque 2 · 48h depois<span class="variant">com gancho da campanha</span></span>
+          <button class="copy-btn" data-copy="fu-think-2">Copiar</button>
+        </div>
+        <div class="script-body" id="fu-think-2">Oi 💗
+
+Só passando pra avisar que o desconto da campanha ainda tá rolando hoje.
+
+Se você decidiu começar, te mando o link agora. Se ainda tá pensando, me fala o que tá segurando que a gente destrava juntas.</div>
+      </div>
+
+      <div class="script">
+        <div class="script-head">
+          <span class="script-label">Persona Lipedema · gancho do tempo<span class="variant">use só se ela demonstrou urgência antes</span></span>
+          <button class="copy-btn" data-copy="fu-think-lip">Copiar</button>
+        </div>
+        <div class="script-body" id="fu-think-lip">Oi, é a Fernanda
+
+Pensar com calma faz parte. Mas eu queria te lembrar de uma coisa.
+
+Com lipedema, cada mês que passa sem cuidado é inflamação acumulando. Não tô te apressando, só te dando o lado real.
+
+Se decidir começar hoje, eu fecho com você na hora.</div>
+      </div>
+
+      <div class="script">
+        <div class="script-head">
+          <span class="script-label">Persona Emagrecimento · gancho do tempo</span>
+          <button class="copy-btn" data-copy="fu-think-ema">Copiar</button>
+        </div>
+        <div class="script-body" id="fu-think-ema">Oi, lembrei de você 💗
+
+A gente parou na fase de "vou pensar". Sem pressão nenhuma.
+
+Mas eu sempre falo o seguinte: a maioria que pensa muito acaba não começando, e daqui a 3 meses se arrepende de não ter dado o passo. Se foi só hesitação normal, me fala que a gente fecha.</div>
+      </div>
+    </div>
+
+    <div class="fu-group">
+      <div class="fu-group-label">→ Última tentativa · depois de 3 a 7 dias sem resposta</div>
+
+      <div class="script">
+        <div class="script-head">
+          <span class="script-label">Versão A · educada e curta</span>
+          <button class="copy-btn" data-copy="fu-last-1">Copiar</button>
+        </div>
+        <div class="script-body" id="fu-last-1">Oi 💗
+
+Última mensagem aqui pra não te incomodar mais. Caso queira voltar a conversar sobre o LipoBlaze, é só me chamar.
+
+Tô aqui se mudar de ideia. Boa semana.</div>
+      </div>
+
+      <div class="script">
+        <div class="script-head">
+          <span class="script-label">Versão B · porta aberta com calor</span>
+          <button class="copy-btn" data-copy="fu-last-2">Copiar</button>
+        </div>
+        <div class="script-body" id="fu-last-2">Oi, sou a Fernanda 💗
+
+Vou parar de te chamar pra não virar inconveniente. Mas se um dia você quiser dar uma olhada de novo, é só me chamar aqui que eu retomo na hora.
+
+Tô torcendo por você.</div>
+      </div>
+
+      <div class="script">
+        <div class="script-head">
+          <span class="script-label">Versão C · genuína</span>
+          <button class="copy-btn" data-copy="fu-last-3">Copiar</button>
+        </div>
+        <div class="script-body" id="fu-last-3">Oi, sou a Fernanda
+
+Cumpro meu papel aqui de te chamar. Se mudou de ideia, sem problema nenhum. Se foi só algo do momento, é só me dar um sinal quando quiser.
+
+Tô torcendo por você 💗</div>
+      </div>
+    </div>
+
+    <div class="sub" id="fu-aposlink">
+      <h3><span class="num">3</span> Follow up · cliente recebeu o link e sumiu</h3>
       <p class="lead">3 toques, espaçados. Se não responder, parou. Não vire chata.</p>
     </div>
 
@@ -1211,8 +1841,8 @@ Você ainda tem interesse em começar o tratamento? Se mudou de ideia, sem probl
 Mas se for por causa de alguma dúvida que eu não tirei direito, me fala que eu resolvo agora.</div>
     </div>
 
-    <div class="sub">
-      <h3><span class="num">3</span> Pós compra · ela pagou</h3>
+    <div class="sub" id="pos-compra">
+      <h3><span class="num">4</span> Pós compra · ela pagou</h3>
       <p class="lead">Esse momento aqui prepara a fidelização. Bom pós venda gera reposição.</p>
     </div>
 
@@ -1333,6 +1963,8 @@ Quer que eu te passe os valores atualizados pra você decidir com calma?</div>
   <footer>
     Material interno · LipoBlaze · Equipe de Vendas e Suporte · Atualize sempre que houver mudança de preço, promoção ou política de envio.
   </footer>
+
+  </main>
 
 </div>
 
